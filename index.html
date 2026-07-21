@@ -188,25 +188,6 @@
   .editor-empty-content{display:flex;flex-direction:column;align-items:center;gap:16px}
   .editor-empty-text{width:232px;font-size:12px;line-height:16px;letter-spacing:.24px}
   .new-note-btn{height:28px;border:0;border-radius:60px;background:#f0f0f0;color:#1d1d1d;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-family:var(--sans);font-size:12px;font-weight:500;line-height:16px;letter-spacing:.48px;cursor:pointer}
-  .dial-kit-toggle{position:fixed;right:18px;bottom:18px;z-index:30;height:32px;border:1px solid #2f2f2f;border-radius:60px;background:rgba(16,16,16,.86);color:#fff;padding:0 14px;font-size:12px;line-height:16px;letter-spacing:.24px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);cursor:pointer}
-  .dial-kit-toggle:hover{background:rgba(29,29,29,.96)}
-  .dial-kit{position:fixed;right:18px;bottom:60px;z-index:30;width:320px;max-height:min(680px,calc(100vh - 84px));padding:14px;border:1px solid #2f2f2f;border-radius:18px;background:rgba(16,16,16,.94);box-shadow:0 24px 80px rgba(0,0,0,.48);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:none;overflow:auto}
-  .dial-kit.open{display:block;animation:message-appear .2s ease both}
-  .dial-kit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
-  .dial-kit-title{font-family:var(--serif);font-size:15px;line-height:20px;font-weight:500;color:#fff}
-  .dial-kit-sub{margin-top:2px;font-size:12px;line-height:16px;color:#828282}
-  .dial-kit-close{width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#b9b9b9;display:grid;place-items:center;cursor:pointer}
-  .dial-kit-grid{display:grid;gap:10px}
-  .dial-control{display:grid;grid-template-columns:1fr 58px;gap:10px;align-items:center}
-  .dial-control-label{font-size:12px;line-height:16px;color:#d4d4d4}
-  .dial-control input,.dial-control select{width:100%;height:30px;border:1px solid #2f2f2f;border-radius:8px;background:transparent;color:#fff;padding:0 8px;font-family:var(--sans);font-size:12px;outline:0}
-  .dial-control input:focus,.dial-control select:focus{border-color:#2f2f2f;background:rgba(255,255,255,.04)}
-  .dial-control select option{background:#1d1d1d;color:#fff}
-  .dial-kit-output{width:100%;min-height:112px;margin-top:12px;padding:10px;border:1px solid #2f2f2f;border-radius:12px;background:#0a0a0a;color:#b9b9b9;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:16px;resize:vertical}
-  .dial-kit-actions{display:flex;gap:8px;margin-top:10px}
-  .dial-kit-action{height:32px;border:1px solid #2f2f2f;border-radius:60px;background:transparent;color:#fff;padding:0 12px;font-size:12px;line-height:16px;cursor:pointer}
-  .dial-kit-action.primary{background:#fff;color:#1d1d1d;border-color:#fff}
-
   .content{position:relative;z-index:2;width:min(822px,calc(100vw - 48px));margin:32px auto 0;padding-top:8px}
   .messages{display:flex;flex-direction:column;gap:24px;width:100%}
   .intro{display:flex;flex-direction:column;gap:16px;width:min(697px,100%)}
@@ -474,23 +455,6 @@
     </aside>
   </section>
 </main>
-<button class="dial-kit-toggle" type="button" id="dialKitToggle">Glow dial kit</button>
-<aside class="dial-kit" id="dialKit" aria-label="Glow dial kit">
-  <div class="dial-kit-head">
-    <div>
-      <div class="dial-kit-title">Glow dial kit</div>
-      <div class="dial-kit-sub">Tune modal glow position, size, and intensity.</div>
-    </div>
-    <button class="dial-kit-close" type="button" id="dialKitClose" aria-label="Close dial kit">×</button>
-  </div>
-  <div class="dial-kit-grid" id="dialKitControls"></div>
-  <textarea class="dial-kit-output" id="dialKitOutput" readonly aria-label="Dial kit settings"></textarea>
-  <div class="dial-kit-actions">
-    <button class="dial-kit-action primary" type="button" id="copyDialKit">Copy settings</button>
-    <button class="dial-kit-action" type="button" id="resetDialKit">Reset</button>
-    <button class="dial-kit-action" type="button" id="replaySwitch">Preview</button>
-  </div>
-</aside>
 <script>
   (function(){
     var input = document.getElementById('chatInput');
@@ -523,14 +487,6 @@
     var messages = document.querySelector('.messages');
     var introTitle = document.getElementById('introTitle');
     var introSub = document.getElementById('introSub');
-    var dialKitToggle = document.getElementById('dialKitToggle');
-    var dialKit = document.getElementById('dialKit');
-    var dialKitClose = document.getElementById('dialKitClose');
-    var dialKitControls = document.getElementById('dialKitControls');
-    var dialKitOutput = document.getElementById('dialKitOutput');
-    var copyDialKit = document.getElementById('copyDialKit');
-    var resetDialKit = document.getElementById('resetDialKit');
-    var replaySwitch = document.getElementById('replaySwitch');
     var timers = [];
     var isResponding = false;
     var hintDismissed = false;
@@ -544,71 +500,6 @@
       "Sketching the first episode beats...",
       "Preparing the storyboard frame..."
     ];
-    var dialDefaults = {
-      sizing: 'fit content',
-      fixedTrackWidth: 100,
-      verticalPadding: 8,
-      leftInset: 8,
-      rightInset: 8,
-      circleSize: 28,
-      circleLabelGap: 8,
-      labelWidth: 44,
-      labelActiveLeft: 8,
-      labelSize: 11,
-      duration: 1.9,
-      delay: 0.22,
-      labelActiveColor: '#ffffff',
-      labelDisabledColor: '#828282',
-      circleActiveColor: '#ffffff',
-      circleDisabledColor: '#828282',
-      borderColor: '#2f2f2f',
-      decisionGlowLeft: 50,
-      decisionGlowTop: 0,
-      decisionGlowWidth: 260,
-      decisionGlowHeight: 112,
-      decisionGlowHotX: 50,
-      decisionGlowHotY: 0,
-      decisionGlowIntensity: 0.16,
-      decisionGlowMid: 0.055,
-      decisionGlowOpacity: 0.72,
-      decisionGlowCorner: 'top center',
-      decisionGlowOffsetX: 0,
-      decisionGlowOffsetY: 0,
-      decisionGlowSize: 260,
-      decisionGlowIntensitySimple: 0.16,
-      decisionGlowSoftness: 0.34,
-      detailsGlowRight: -44,
-      detailsGlowTop: -34,
-      detailsGlowWidth: 290,
-      detailsGlowHeight: 196,
-      detailsGlowHotX: 100,
-      detailsGlowHotY: 0,
-      detailsGlowIntensity: 0.28,
-      detailsGlowMid: 0.12,
-      detailsGlowOpacity: 1,
-      detailsGlowCorner: 'top right',
-      detailsGlowOffsetX: -44,
-      detailsGlowOffsetY: -34,
-      detailsGlowSize: 290,
-      detailsGlowIntensitySimple: 0.28,
-      detailsGlowSoftness: 0.43
-    };
-    var dialSettings = Object.assign({}, dialDefaults);
-    var dialControls = [
-      { key:'decisionGlowCorner', label:'Decision corner', type:'select', options:['top center','top left','top right'] },
-      { key:'decisionGlowOffsetX', label:'Decision X offset', step:1, unit:'px' },
-      { key:'decisionGlowOffsetY', label:'Decision Y offset', step:1, unit:'px' },
-      { key:'decisionGlowSize', label:'Decision size', step:1, unit:'px' },
-      { key:'decisionGlowIntensitySimple', label:'Decision intensity', step:0.01, unit:'' },
-      { key:'decisionGlowSoftness', label:'Decision softness', step:0.01, unit:'' },
-      { key:'detailsGlowCorner', label:'Details corner', type:'select', options:['top right','top center','top left'] },
-      { key:'detailsGlowOffsetX', label:'Details X offset', step:1, unit:'px' },
-      { key:'detailsGlowOffsetY', label:'Details Y offset', step:1, unit:'px' },
-      { key:'detailsGlowSize', label:'Details size', step:1, unit:'px' },
-      { key:'detailsGlowIntensitySimple', label:'Details intensity', step:0.01, unit:'' },
-      { key:'detailsGlowSoftness', label:'Details softness', step:0.01, unit:'' }
-    ];
-
     function wait(ms){
       return new Promise(function(resolve){
         timers.push(setTimeout(resolve, ms));
@@ -643,189 +534,6 @@
         statusTextElement.textContent = text;
         statusTextElement.classList.remove('changing');
       }, 180));
-    }
-
-    function toCssName(key){
-      if (key === 'knobStartLeft') return '--switch-knob-start-left';
-      if (key === 'knobEndX') return '--switch-knob-end-x';
-      if (key === 'labelEndX') return '--switch-label-end-x';
-      if (key === 'labelActiveColor') return '--switch-label-active-color';
-      if (key === 'labelDisabledColor') return '--switch-label-disabled-color';
-      if (key === 'circleActiveColor') return '--switch-circle-active-color';
-      if (key === 'circleDisabledColor') return '--switch-circle-disabled-color';
-      return '--switch-' + key.replace(/[A-Z]/g, function(match){ return '-' + match.toLowerCase(); });
-    }
-
-    function formatDialValue(key, value){
-      if (key === 'duration' || key === 'delay') return value + 's';
-      if (key === 'labelActiveColor' || key === 'labelDisabledColor' || key === 'circleActiveColor' || key === 'circleDisabledColor' || key === 'borderColor') return value;
-      if (/GlowOffsetX$/.test(key) || /GlowOffsetY$/.test(key) || /GlowSize$/.test(key)) return value + 'px';
-      if (/Glow(Left|HotX|HotY)$/.test(key)) return value + '%';
-      if (/Glow(Top|Right|Width|Height)$/.test(key)) return value + 'px';
-      if (/Glow(Intensity|Mid|Opacity)$/.test(key)) return value;
-      return value + 'px';
-    }
-
-    function glowCssName(key){
-      var normalized = key.replace(/^decisionGlow/, 'decision-glow').replace(/^detailsGlow/, 'details-glow');
-      return '--' + normalized.replace(/[A-Z]/g, function(match){ return '-' + match.toLowerCase(); });
-    }
-
-    function getGlowPreset(prefix){
-      var corner = dialSettings[prefix + 'GlowCorner'];
-      var offsetX = dialSettings[prefix + 'GlowOffsetX'];
-      var offsetY = dialSettings[prefix + 'GlowOffsetY'];
-      var size = dialSettings[prefix + 'GlowSize'];
-      var intensity = dialSettings[prefix + 'GlowIntensitySimple'];
-      var softness = dialSettings[prefix + 'GlowSoftness'];
-      var isDecision = prefix === 'decision';
-      var left = corner === 'top left' ? offsetX + 'px' : corner === 'top center' ? 'calc(50% + ' + offsetX + 'px)' : 'auto';
-      var right = corner === 'top right' ? offsetX + 'px' : 'auto';
-      var transform = corner === 'top center' ? 'translateX(-50%)' : 'none';
-      var hotX = corner === 'top left' ? '0%' : corner === 'top center' ? '50%' : '100%';
-      return {
-        left: left,
-        right: right,
-        top: offsetY + 'px',
-        width: size + 'px',
-        height: Math.round(size * (isDecision ? 0.43 : 0.68)) + 'px',
-        transform: transform,
-        hotX: hotX,
-        hotY: '0%',
-        intensity: intensity,
-        mid: Math.max(0, Math.min(1, intensity * softness)),
-        opacity: Math.max(0, Math.min(1, intensity * 3.6))
-      };
-    }
-
-    function getComputedDial(){
-      var trackWidth = dialSettings.sizing !== 'fixed width'
-        ? dialSettings.leftInset + dialSettings.circleSize + dialSettings.circleLabelGap + dialSettings.labelWidth + dialSettings.rightInset
-        : dialSettings.fixedTrackWidth;
-      var trackHeight = dialSettings.circleSize + dialSettings.verticalPadding * 2;
-      var knobStartLeft = trackWidth - dialSettings.circleSize - dialSettings.rightInset;
-      var knobEndX = dialSettings.leftInset - knobStartLeft;
-      var labelOffLeft = dialSettings.leftInset + dialSettings.circleSize + dialSettings.circleLabelGap;
-      var labelActiveLeft = knobStartLeft - dialSettings.circleLabelGap - dialSettings.labelWidth;
-      var labelEndX = labelOffLeft - labelActiveLeft;
-      return {
-        trackWidth: trackWidth,
-        trackHeight: trackHeight,
-        knobSize: dialSettings.circleSize,
-        knobStartLeft: knobStartLeft,
-        knobEndX: knobEndX,
-        labelLeft: labelActiveLeft,
-        labelEndX: labelEndX,
-        labelSize: dialSettings.labelSize,
-        duration: dialSettings.duration,
-        delay: dialSettings.delay,
-        labelActiveColor: dialSettings.labelActiveColor,
-        labelDisabledColor: dialSettings.labelDisabledColor,
-        circleActiveColor: dialSettings.circleActiveColor,
-        circleDisabledColor: dialSettings.circleDisabledColor,
-        borderColor: dialSettings.borderColor
-      };
-    }
-
-    function updateDialOutput(){
-      dialKitOutput.value = JSON.stringify({
-        decision: {
-          corner: dialSettings.decisionGlowCorner,
-          xOffset: formatDialValue('decisionGlowOffsetX', dialSettings.decisionGlowOffsetX),
-          yOffset: formatDialValue('decisionGlowOffsetY', dialSettings.decisionGlowOffsetY),
-          size: formatDialValue('decisionGlowSize', dialSettings.decisionGlowSize),
-          intensity: dialSettings.decisionGlowIntensitySimple,
-          softness: dialSettings.decisionGlowSoftness
-        },
-        details: {
-          corner: dialSettings.detailsGlowCorner,
-          xOffset: formatDialValue('detailsGlowOffsetX', dialSettings.detailsGlowOffsetX),
-          yOffset: formatDialValue('detailsGlowOffsetY', dialSettings.detailsGlowOffsetY),
-          size: formatDialValue('detailsGlowSize', dialSettings.detailsGlowSize),
-          intensity: dialSettings.detailsGlowIntensitySimple,
-          softness: dialSettings.detailsGlowSoftness
-        }
-      }, null, 2);
-    }
-
-    function applyDialSettings(){
-      var computed = getComputedDial();
-      Object.keys(computed).forEach(function(key){
-        document.documentElement.style.setProperty(toCssName(key), formatDialValue(key, computed[key]));
-      });
-      var decisionGlow = getGlowPreset('decision');
-      document.documentElement.style.setProperty('--decision-glow-left', decisionGlow.left);
-      document.documentElement.style.setProperty('--decision-glow-top', decisionGlow.top);
-      document.documentElement.style.setProperty('--decision-glow-width', decisionGlow.width);
-      document.documentElement.style.setProperty('--decision-glow-height', decisionGlow.height);
-      document.documentElement.style.setProperty('--decision-glow-transform', decisionGlow.transform);
-      document.documentElement.style.setProperty('--decision-glow-hot-x', decisionGlow.hotX);
-      document.documentElement.style.setProperty('--decision-glow-hot-y', decisionGlow.hotY);
-      document.documentElement.style.setProperty('--decision-glow-intensity', decisionGlow.intensity);
-      document.documentElement.style.setProperty('--decision-glow-mid', decisionGlow.mid);
-      document.documentElement.style.setProperty('--decision-glow-opacity', decisionGlow.opacity);
-      var detailsGlow = getGlowPreset('details');
-      document.documentElement.style.setProperty('--details-glow-left', detailsGlow.left);
-      document.documentElement.style.setProperty('--details-glow-right', detailsGlow.right);
-      document.documentElement.style.setProperty('--details-glow-top', detailsGlow.top);
-      document.documentElement.style.setProperty('--details-glow-width', detailsGlow.width);
-      document.documentElement.style.setProperty('--details-glow-height', detailsGlow.height);
-      document.documentElement.style.setProperty('--details-glow-hot-x', detailsGlow.hotX);
-      document.documentElement.style.setProperty('--details-glow-hot-y', detailsGlow.hotY);
-      document.documentElement.style.setProperty('--details-glow-intensity', detailsGlow.intensity);
-      document.documentElement.style.setProperty('--details-glow-mid', detailsGlow.mid);
-      document.documentElement.style.setProperty('--details-glow-opacity', detailsGlow.opacity);
-      updateDialOutput();
-    }
-
-    function renderDialKit(){
-      dialKitControls.innerHTML = '';
-      dialControls.forEach(function(control){
-        var wrap = document.createElement('label');
-        wrap.className = 'dial-control';
-
-        var label = document.createElement('span');
-        label.className = 'dial-control-label';
-        label.textContent = control.label;
-        wrap.appendChild(label);
-
-        var valueInput = control.type === 'select' ? document.createElement('select') : document.createElement('input');
-        if (control.type === 'select') {
-          control.options.forEach(function(option){
-            var optionElement = document.createElement('option');
-            optionElement.value = option;
-            optionElement.textContent = option;
-            valueInput.appendChild(optionElement);
-          });
-        } else {
-          valueInput.type = control.type === 'color' ? 'text' : 'number';
-        }
-        valueInput.value = dialSettings[control.key];
-        if (!control.type) {
-          valueInput.step = control.step;
-        }
-        wrap.appendChild(valueInput);
-
-        valueInput.addEventListener('input', function(){
-          dialSettings[control.key] = control.type ? valueInput.value : Number(valueInput.value);
-          applyDialSettings();
-        });
-
-        dialKitControls.appendChild(wrap);
-      });
-      applyDialSettings();
-    }
-
-    function replaySwitchAnimation(){
-      var toggle = document.querySelector('.skip-toggle');
-      if (!toggle) return;
-      toggle.style.animation = 'none';
-      toggle.offsetHeight;
-      toggle.style.animation = '';
-      var label = toggle.querySelector('.skip-toggle-label');
-      label.style.animation = 'none';
-      label.offsetHeight;
-      label.style.animation = '';
     }
 
     function updateSendState(){
@@ -1121,26 +829,6 @@
       hintDismissed = true;
       composerWrap.classList.remove('hint-visible');
     });
-    dialKitToggle.addEventListener('click', function(){
-      dialKit.classList.toggle('open');
-    });
-    dialKitClose.addEventListener('click', function(){
-      dialKit.classList.remove('open');
-    });
-    copyDialKit.addEventListener('click', function(){
-      dialKitOutput.select();
-      document.execCommand('copy');
-      copyDialKit.textContent = 'Copied';
-      timers.push(setTimeout(function(){
-        copyDialKit.textContent = 'Copy settings';
-      }, 900));
-    });
-    resetDialKit.addEventListener('click', function(){
-      dialSettings = Object.assign({}, dialDefaults);
-      renderDialKit();
-      replaySwitchAnimation();
-    });
-    replaySwitch.addEventListener('click', replaySwitchAnimation);
     input.addEventListener('focus', keepScreenPinned);
     input.addEventListener('input', function(){
       keepScreenPinned();
@@ -1159,7 +847,6 @@
         closeSkipModal();
       }
     });
-    renderDialKit();
     boot();
   })();
 </script>
