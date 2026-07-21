@@ -132,13 +132,13 @@
   .skip-input::placeholder{color:#696969}
   .skip-input:hover,.skip-input:focus,.skip-select-button:hover,.skip-select-button:focus,.skip-select-wrap.open .skip-select-button{border-color:#666;background:rgba(102,102,102,.2)}
   .skip-input:not(:focus):not(:hover):not(:placeholder-shown),.skip-select-wrap.has-value:not(.open) .skip-select-button:not(:hover):not(:focus){background:transparent;color:#fff;border-color:var(--divider-secondary)}
-  .skip-consent{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer}
+  .skip-consent{display:flex;align-items:center;gap:10px;margin-top:12px;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer}
   .skip-consent:focus-within{border-color:var(--divider-secondary)}
   .skip-consent input{position:absolute;opacity:0;pointer-events:none}
-  .skip-check{position:relative;width:18px;height:18px;border-radius:5px;border:1px solid var(--divider-secondary);background:rgba(255,255,255,.04);flex:none;margin-top:1px}
-  .skip-check::after{content:"";position:absolute;left:50%;top:46%;width:5px;height:9px;border:solid #1d1d1d;border-width:0 2px 2px 0;transform:translate(-50%,-50%) rotate(45deg) scale(.6);transform-origin:center;opacity:0;transition:opacity .16s ease,transform .16s ease}
+  .skip-check{position:relative;width:18px;height:18px;border-radius:5px;border:1px solid var(--divider-secondary);background:rgba(255,255,255,.04);flex:none}
+  .skip-check::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:8px;border:solid #1d1d1d;border-width:0 2px 2px 0;transform:rotate(45deg) scale(.6);transform-origin:center;opacity:0;transition:opacity .16s ease,transform .16s ease}
   .skip-consent input:checked + .skip-check{border-color:var(--divider-secondary);background:#fff}
-  .skip-consent input:checked + .skip-check::after{opacity:1;transform:translate(-50%,-50%) rotate(45deg) scale(1)}
+  .skip-consent input:checked + .skip-check::after{opacity:1;transform:rotate(45deg) scale(1)}
   .skip-consent-text{font-family:var(--serif);font-size:12px;line-height:18px;color:#d4d4d4;letter-spacing:.12px}
   .skip-form-error{display:none;color:#ffb4a8;font-size:12px;line-height:16px;letter-spacing:.12px;text-align:center}
   .skip-form-error.visible{display:block}
