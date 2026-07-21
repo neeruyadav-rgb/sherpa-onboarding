@@ -8,6 +8,8 @@
 @font-face{font-family:"Season Mix";src:url("fonts/SeasonMix-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"Lab Grotesque";src:url("fonts/LabGrotesque-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Lab Grotesque";src:url("fonts/LabGrotesque-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"PP Supply Sans";src:url("fonts/PPSupplySans-Ultralight.otf") format("opentype");font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:"PP Supply Sans";src:url("fonts/PPSupplySans-Regular.otf") format("opentype");font-weight:400 600;font-style:normal;font-display:swap}
 
 :root{
   --sherpa-surface:#0a0a0a;
@@ -25,7 +27,7 @@
   --sherpa-radius-pill:60px;
   --sherpa-font-sans:"Lab Grotesque","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --sherpa-font-serif:"Season Mix",Georgia,serif;
-  --sherpa-font-supply:"PP Supply Sans","PPSupplySans","PP Supply Sans Variable",monospace;
+  --sherpa-font-supply:"PP Supply Sans";
   --sherpa-glow-left:50%;
   --sherpa-glow-right:auto;
   --sherpa-glow-top:0px;
