@@ -181,7 +181,7 @@
   .editor-tab{height:28px;flex:1;border:0;border-radius:8px;background:transparent;color:#828282;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--supply);font-size:12px;line-height:16px;letter-spacing:.48px;text-transform:uppercase}
   .editor-tab.active{color:#fff;background:rgba(102,102,102,.2)}
   .editor-tab .tab-icon{width:16px;height:16px;display:grid;place-items:center;color:currentColor}
-  .editor-tab .tab-icon img{opacity:.9}
+  .editor-tab .tab-icon svg{width:16px;height:16px;display:block;overflow:visible}
   .editor-empty{flex:1;display:grid;place-items:center;margin-top:12px;padding:32px;border-radius:8px;background:rgba(102,102,102,.2);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px)}
   .editor-empty-card{width:256px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;color:#b9b9b9}
   .editor-empty-illustration{width:172px;height:162px;object-fit:contain;opacity:.9;border:0}
@@ -440,8 +440,8 @@
     </div>
     <aside class="editor-aside" aria-label="Episode tools">
       <div class="editor-tabs">
-        <button class="editor-tab active" type="button"><span class="tab-icon"><img src="img/icon-notes.svg" alt=""></span>Notes</button>
-        <button class="editor-tab" type="button"><span class="tab-icon"><img src="img/icon-feedback.svg" alt=""></span>Feedback</button>
+        <button class="editor-tab active" type="button"><span class="tab-icon"><svg viewBox="0 0 10.8667 13.5333" fill="none" aria-hidden="true"><path d="M10.2667 9.16481V0.6H0.6V12.9333H1.23145M10.2667 9.16481V9.40952C10.2667 9.91782 10.1012 10.4124 9.79524 10.819C8.79364 12.15 7.22172 12.9333 5.55238 12.9333H1.23145M10.2667 9.16481C10.2667 10.8778 7.86042 10.8778 6.82917 10.1926L6.09281 10.9265C4.80349 12.2114 3.05481 12.9333 1.23145 12.9333" stroke="currentColor" stroke-width="1.2"/></svg></span>Notes</button>
+        <button class="editor-tab" type="button"><span class="tab-icon"><svg viewBox="0 0 11.9484 13.9484" fill="none" aria-hidden="true"><path d="M4.26667 12.9333H0.6V0.6H10.2667V5.93333M11.1 13.1L10.4333 12.4118M3.26667 3.26667H7.6M3.26667 5.93333H5.6M10.9333 10.4333C10.9333 9.05262 9.81405 7.93333 8.43333 7.93333C7.05262 7.93333 5.93333 9.05262 5.93333 10.4333C5.93333 11.814 7.05262 12.9333 8.43333 12.9333C9.13095 12.9333 9.76184 12.6476 10.2153 12.1868C10.6594 11.7355 10.9333 11.1164 10.9333 10.4333Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/></svg></span>Feedback</button>
       </div>
       <div class="editor-empty">
         <div class="editor-empty-card">
